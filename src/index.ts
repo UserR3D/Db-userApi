@@ -2,8 +2,13 @@ import fastify from 'fastify';
 import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
 import Routes from './routes/userRoute';
+import { serializerCompiler, validatorCompiler, ZodTypeProvider } from 'fastify-type-provider-zod';
 
-const server = fastify();
+const server = fastify({ logger: true }).withTypeProvider<ZodTypeProvider>();
+
+server.setValidatorCompiler(validatorCompiler);
+server.setSerializerCompiler(serializerCompiler);
+
 const prisma = new PrismaClient();
 
 async function main() {
