@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { $Enums, PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -6,7 +6,7 @@ export async function getUsers() {
   return await prisma.user.findMany();
 }
 
-export async function addUser(email, password, role) {
+export async function addUser(email: string, password: string, role: $Enums.Role) {
   return await prisma.user.create({
     data: {
       email,
@@ -16,7 +16,7 @@ export async function addUser(email, password, role) {
   });
 }
 
-export async function updateUser(email, password, role, id) {
+export async function updateUser(email: string, password: string, role: $Enums.Role, id: number) {
   return await prisma.user.update({
     where: {
       id,
@@ -25,6 +25,14 @@ export async function updateUser(email, password, role, id) {
       email,
       password,
       role,
+    },
+  });
+}
+
+export async function deleteUser(id: number) {
+  return await prisma.user.delete({
+    where: {
+      id,
     },
   });
 }

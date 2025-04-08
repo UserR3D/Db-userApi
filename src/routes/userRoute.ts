@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify';
-import { createHandlerUsers, getHandlerUsers, updateHandlerUsers } from '../controllers/userController';
+import { createHandlerUsers, deleteHanlderUsers, getHandlerUsers, updateHandlerUsers } from '../controllers/userController';
 import { postUser } from '../schemas/userSchema';
 
 async function Routes(route: FastifyInstance) {
@@ -14,6 +14,7 @@ async function Routes(route: FastifyInstance) {
     createHandlerUsers
   );
   route.put('/updateUser/:id', updateHandlerUsers);
+  route.delete('/deleteUser/:id', deleteHanlderUsers);
 }
 
 export default Routes;
