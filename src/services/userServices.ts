@@ -9,9 +9,22 @@ export async function getUsers() {
 export async function addUser(email, password, role) {
   return await prisma.user.create({
     data: {
-      email: email,
-      password: password,
-      role: role,
+      email,
+      password,
+      role,
+    },
+  });
+}
+
+export async function updateUser(email, password, role, id) {
+  return await prisma.user.update({
+    where: {
+      id,
+    },
+    data: {
+      email,
+      password,
+      role,
     },
   });
 }
