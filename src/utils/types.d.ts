@@ -1,3 +1,4 @@
+import { JWT } from '@fastify/jwt';
 import { $Enums } from '@prisma/client';
 
 interface bodyUser {
@@ -5,4 +6,10 @@ interface bodyUser {
   email: string;
   password: string;
   role: $Enums.Role;
+}
+
+declare module 'fastify' {
+  interface FastifyRequest {
+    jwt: JWT;
+  }
 }

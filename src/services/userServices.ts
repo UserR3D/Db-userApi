@@ -1,4 +1,5 @@
 import { $Enums, PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
@@ -35,4 +36,17 @@ export async function deleteUser(id: number) {
       id,
     },
   });
+}
+
+export async function loginUser(email: string, password: string) {
+  const user = await prisma.user.findUnique({ where: { email } });
+  const isMatch = user && (await bcrypt.compare(password, user.password));
+  if (!user || !isMatch) {
+    throw new Error('Invalid email or password');
+  }
+  const payload = {
+    id: user.id,
+    email: user.email,
+  };
+  return { user, isMatch, payload };
 }
