@@ -21,7 +21,7 @@ server.addHook('preHandler', (req, _res, next) => {
 });
 
 server.register(fastifyCookie, {
-  secret: 'secret-key',
+  secret: `${process.env.FF_COOKIES_SECRET}`,
   hook: 'preHandler',
 });
 
