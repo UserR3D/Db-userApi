@@ -1,10 +1,10 @@
-import fastify from 'fastify';
+import fastify, { FastifyReply, FastifyRequest } from 'fastify';
 import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
 import Routes from './routes/userRoute';
 import { serializerCompiler, validatorCompiler, ZodTypeProvider } from 'fastify-type-provider-zod';
 import fastifyCookie from '@fastify/cookie';
-import fjwt from '@fastify/jwt';
+import fjwt, { FastifyJWT } from '@fastify/jwt';
 
 const server = fastify({ logger: true }).withTypeProvider<ZodTypeProvider>();
 
@@ -23,6 +23,15 @@ server.addHook('preHandler', (req, _res, next) => {
 server.register(fastifyCookie, {
   secret: `${process.env.FF_COOKIES_SECRET}`,
   hook: 'preHandler',
+});
+
+server.decorate('authenticate', async (request: FastifyRequest, reply: FastifyReply) => {
+  const token = request.cookies.acess_token;
+  if (!token) {
+    return reply.status(401).send({ message: 'Authentication required' });
+  }
+  const decoded = request.jwt.verify<FastifyJWT['user']>(token);
+  request.user = decoded;
 });
 
 async function main() {

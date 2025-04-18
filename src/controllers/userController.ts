@@ -46,3 +46,8 @@ export async function getLoginUser(request: FastifyRequest<{ Body: bodyUser }>, 
     reply.code(401).send(e);
   }
 }
+
+export async function logout(_request: FastifyRequest, reply: FastifyReply) {
+  reply.clearCookie('acess_token');
+  return reply.send({ message: 'Logout successful' });
+}
