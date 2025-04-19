@@ -40,7 +40,7 @@ export async function getLoginUser(request: FastifyRequest<{ Body: bodyUser }>, 
       throw new Error('Invalid email or password');
     }
     const token = request.jwt.sign(userPayload);
-    reply.setCookie('acess_token', token, { path: '/login', httpOnly: true, secure: true });
+    reply.setCookie('acess_token', token, { path: '/', httpOnly: true, secure: true });
     reply.send(token);
   } catch (e) {
     reply.code(401).send(e);
