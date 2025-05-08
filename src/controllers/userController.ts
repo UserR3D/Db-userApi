@@ -1,11 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { addUser, deleteUser, getUsers, loginUser, updateUser } from '../services/userServices';
-import { bodyUser } from '../utils/types';
+import { bodyUser, userID } from '../utils/types';
 import bcrypt from 'bcryptjs';
-
-type userID = {
-  id: number;
-};
 
 export async function getHandlerUsers(_request: FastifyRequest, reply: FastifyReply) {
   const users = await getUsers();

@@ -1,10 +1,12 @@
 import fastify, { FastifyReply, FastifyRequest } from 'fastify';
 import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
-import Routes from './routes/userRoute';
+import userRoutes from './routes/userRoute';
+('./routes/userRoute');
 import { serializerCompiler, validatorCompiler, ZodTypeProvider } from 'fastify-type-provider-zod';
 import fastifyCookie from '@fastify/cookie';
 import fjwt, { FastifyJWT } from '@fastify/jwt';
+import postsRoute from './routes/postsRoute';
 
 const server = fastify({ logger: true }).withTypeProvider<ZodTypeProvider>();
 
@@ -39,7 +41,8 @@ async function main() {
     if (err) throw err;
     console.log(`Server listening on ${process.env.PORT}`);
   });
-  server.register(Routes);
+  server.register(userRoutes);
+  server.register(postsRoute);
 }
 
 main()

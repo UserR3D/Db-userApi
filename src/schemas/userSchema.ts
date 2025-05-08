@@ -1,4 +1,4 @@
-import { $Enums } from '@prisma/client';
+import { $Enums, Prisma } from '@prisma/client';
 import { z } from 'zod';
 
 export const postUser = z.object({
@@ -10,4 +10,10 @@ export const postUser = z.object({
 export const loginUserSchema = z.object({
   email: z.string(),
   password: z.string(),
+});
+
+export const postDbSchema = z.object({
+  title: z.string(),
+  content: z.optional(z.string()),
+  published: z.boolean(),
 });

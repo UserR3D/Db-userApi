@@ -8,6 +8,20 @@ interface bodyUser {
   role: $Enums.Role;
 }
 
+interface postContent {
+  id: number;
+  title: string;
+  content: string;
+  published: boolean;
+  authorID: number;
+}
+
+type postBase = {
+  title: string;
+  content: string;
+  published: boolean;
+};
+
 declare module 'fastify' {
   interface FastifyRequest {
     jwt: JWT;
@@ -16,6 +30,10 @@ declare module 'fastify' {
     authenticate: any;
   }
 }
+
+type userID = {
+  id: number;
+};
 
 type UserPayload = {
   id: number;
