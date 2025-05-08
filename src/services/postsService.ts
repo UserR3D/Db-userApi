@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import { postBase } from '../utils/types';
 
 const prisma = new PrismaClient();

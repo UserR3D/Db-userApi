@@ -15,15 +15,15 @@ export async function createHandlerUsers(request: FastifyRequest<{ Params: userI
   reply.send(createUser);
 }
 
-export async function updateHandlerUsers(request: FastifyRequest<{ Body: bodyUser }>, reply: FastifyReply) {
+export async function updateHandlerUsers(request: FastifyRequest<{ Params: userID; Body: bodyUser }>, reply: FastifyReply) {
   const { email, password, role } = request.body;
-  const { id }: any = request.params;
+  const { id } = request.params;
   const changeUser = await updateUser(email, password, role, +id);
   reply.send(changeUser);
 }
 
-export async function deleteHanlderUsers(request: FastifyRequest, reply: FastifyReply) {
-  const { id }: any = request.params;
+export async function deleteHanlderUsers(request: FastifyRequest<{ Params: userID }>, reply: FastifyReply) {
+  const { id } = request.params;
   const eraseUser = await deleteUser(+id);
   reply.send(eraseUser);
 }
