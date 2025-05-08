@@ -17,3 +17,7 @@ export async function addPost({ content, title, published }: postBase, id: numbe
     },
   });
 }
+
+export async function getPost() {
+  return await prisma.post.findMany();
+}
