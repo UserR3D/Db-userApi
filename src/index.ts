@@ -7,6 +7,7 @@ import { serializerCompiler, validatorCompiler, ZodTypeProvider } from 'fastify-
 import fastifyCookie from '@fastify/cookie';
 import fjwt, { FastifyJWT } from '@fastify/jwt';
 import postsRoute from './routes/postsRoute';
+import cors from "@fastify/cors"
 
 const server = fastify({ logger: true }).withTypeProvider<ZodTypeProvider>();
 
@@ -16,6 +17,7 @@ server.setSerializerCompiler(serializerCompiler);
 const prisma = new PrismaClient();
 
 server.register(fjwt, { secret: `${process.env.JWT_SECRET}` });
+server.register(cors);
 
 server.addHook('preHandler', (req, _res, next) => {
   req.jwt = server.jwt;
