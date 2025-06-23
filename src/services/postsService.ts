@@ -1,9 +1,12 @@
-import { PrismaClient } from '@prisma/client';
-import { postBase } from '../utils/types';
+import { PrismaClient } from "@prisma/client";
+import { postBase } from "../utils/types";
 
 const prisma = new PrismaClient();
 
-export async function addPost({ content, title, published }: postBase, id: number) {
+export async function addPost(
+  { content, title, published }: postBase,
+  id: number
+) {
   return await prisma.post.create({
     data: {
       content,
@@ -19,5 +22,7 @@ export async function addPost({ content, title, published }: postBase, id: numbe
 }
 
 export async function getPost() {
-  return await prisma.post.findMany();
+  return await prisma.post.findMany({
+    include: { author: { select: { email: true, role: true } } },
+  });
 }
