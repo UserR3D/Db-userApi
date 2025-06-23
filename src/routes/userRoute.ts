@@ -1,11 +1,20 @@
-import { FastifyInstance } from 'fastify';
-import { createHandlerUsers, deleteHanlderUsers, getHandlerUsers, getLoginUser, logout, updateHandlerUsers } from '../controllers/userController';
-import { loginUserSchema, postUser } from '../schemas/userSchema';
+import { FastifyInstance } from "fastify";
+import {
+  createHandlerUsers,
+  deleteHanlderUsers,
+  getHandlerUser,
+  getHandlerUsers,
+  getLoginUser,
+  logout,
+  updateHandlerUsers,
+} from "../controllers/userController";
+import { loginUserSchema, postUser } from "../schemas/userSchema";
 
 async function userRoutes(route: FastifyInstance) {
-  route.get('/users', { preHandler: [route.authenticate] }, getHandlerUsers);
+  route.get("/users", { preHandler: [route.authenticate] }, getHandlerUsers);
+  route.get("/users/:id", getHandlerUser);
   route.post(
-    '/createUser',
+    "/createUser",
     {
       schema: {
         body: postUser,
@@ -13,10 +22,10 @@ async function userRoutes(route: FastifyInstance) {
     },
     createHandlerUsers
   );
-  route.put('/updateUser/:id', updateHandlerUsers);
-  route.delete('/deleteUser/:id', deleteHanlderUsers);
-  route.post('/login', { schema: { body: loginUserSchema } }, getLoginUser);
-  route.delete('/logout', { preHandler: [route.authenticate] }, logout);
+  route.put("/updateUser/:id", updateHandlerUsers);
+  route.delete("/deleteUser/:id", deleteHanlderUsers);
+  route.post("/login", { schema: { body: loginUserSchema } }, getLoginUser);
+  route.delete("/logout", { preHandler: [route.authenticate] }, logout);
 }
 
 export default userRoutes;
