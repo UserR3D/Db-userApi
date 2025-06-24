@@ -1,5 +1,5 @@
-import { JWT } from '@fastify/jwt';
-import { $Enums } from '@prisma/client';
+import { JWT } from "@fastify/jwt";
+import { $Enums } from "@prisma/client";
 
 interface bodyUser {
   id: number;
@@ -22,7 +22,7 @@ type postBase = {
   published: boolean;
 };
 
-declare module 'fastify' {
+declare module "fastify" {
   interface FastifyRequest {
     jwt: JWT;
   }
@@ -36,12 +36,14 @@ type userID = {
 };
 
 type UserPayload = {
-  id: number;
-  email: string;
+  user: {
+    id: number;
+    email: string;
+  };
 };
 
-declare module '@fastify/jwt' {
+declare module "@fastify/jwt" {
   interface FastifyJWT {
-    user: UserPayload;
+    userApi: UserPayload;
   }
 }

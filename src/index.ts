@@ -24,6 +24,7 @@ server.register(fjwt, { secret: `${process.env.JWT_SECRET}` });
 server.register(cors, {
   credentials: true,
   origin: process.env.CORS_ORIGIN,
+  methods: ["GET", "POST", "PUT", "DELETE"],
 });
 
 server.addHook("preHandler", (req, _res, next) => {
@@ -43,8 +44,8 @@ server.decorate(
     if (!token) {
       return reply.status(401).send({ message: "Authentication required" });
     }
-    const decoded = request.jwt.verify<FastifyJWT["user"]>(token);
-    request.user = decoded;
+    const decoded = request.jwt.verify<FastifyJWT["userApi"]>(token);
+    request.userApi = decoded;
   }
 );
 
