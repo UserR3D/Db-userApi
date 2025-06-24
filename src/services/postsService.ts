@@ -26,3 +26,11 @@ export async function getPost() {
     include: { author: { select: { email: true, role: true } } },
   });
 }
+
+export async function getOnlyPost(id: number) {
+  return await prisma.post.findUnique({
+    where: {
+      id,
+    },
+  });
+}
