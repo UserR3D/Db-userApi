@@ -6,8 +6,8 @@ export async function postCreate(
   request: FastifyRequest<{ Body: postContent }>,
   reply: FastifyReply
 ) {
-  const postcreated = await addPost(request.body, request.userApi.user.id);
-  reply.send(postcreated);
+  const postCreated = await addPost(request.body, request.userApi.user.id);
+  reply.send(postCreated);
 }
 
 export async function getHandlerPosts(
