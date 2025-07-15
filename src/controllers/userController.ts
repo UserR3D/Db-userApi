@@ -67,12 +67,15 @@ export async function getLoginUser(
       throw new Error("Invalid email or password");
     }
     const token = request.jwt.sign(userPayload);
-    reply.setCookie("acess_token", token, {
+    const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+
+    reply.setCookie("__Secure_acess_token__", token, {
       path: "/",
       httpOnly: true,
       secure: true,
+      expires: expires,
     });
-    reply.send({ message: "acesso sucedido" });
+    reply.send(userPayload.payload);
   } catch (e) {
     reply.code(401).send(e);
   }

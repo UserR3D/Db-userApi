@@ -63,6 +63,7 @@ export async function loginUser(email: string, password: string) {
   const payload = {
     id: user.id,
     email: user.email,
+    role: user.role,
   };
   return { user, isMatch, payload };
 }
