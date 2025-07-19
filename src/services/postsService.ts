@@ -32,5 +32,6 @@ export async function getOnlyPost(id: number) {
     where: {
       id,
     },
+    include: { author: { select: { email: true, role: true } } },
   });
 }
