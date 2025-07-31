@@ -43,7 +43,8 @@ export async function updateHandlerUsers(
 ) {
   const { email, password, role } = request.body;
   const { id } = request.params;
-  const changeUser = await updateUser(email, password, role, +id);
+  const passswordHash = await bcrypt.hash(password, 10);
+  const changeUser = await updateUser(email, passswordHash, role, +id);
   reply.send(changeUser);
 }
 
@@ -82,6 +83,6 @@ export async function getLoginUser(
 }
 
 export async function logout(_request: FastifyRequest, reply: FastifyReply) {
-  reply.clearCookie("acess_token");
+  reply.clearCookie("__Secure_acess_token__");
   return reply.send({ message: "Logout successful" });
 }

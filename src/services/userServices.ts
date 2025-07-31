@@ -57,6 +57,7 @@ export async function deleteUser(id: number) {
 export async function loginUser(email: string, password: string) {
   const user = await prisma.user.findUnique({ where: { email } });
   const isMatch = user && (await bcrypt.compare(password, user.password));
+  console.log(user);
   if (!user || !isMatch) {
     throw new Error("Invalid email or password");
   }

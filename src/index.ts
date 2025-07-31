@@ -23,7 +23,7 @@ const prisma = new PrismaClient();
 server.register(fjwt, { secret: `${process.env.JWT_SECRET}` });
 server.register(cors, {
   credentials: true,
-  origin: process.env.CORS_ORIGIN,
+  origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
 });
 
@@ -40,7 +40,7 @@ server.register(fastifyCookie, {
 server.decorate(
   "authenticate",
   async (request: FastifyRequest, reply: FastifyReply) => {
-    const token = request.cookies.acess_token;
+    const token = request.cookies.__Secure_acess_token__;
     if (!token) {
       return reply.status(401).send({ message: "Authentication required" });
     }
