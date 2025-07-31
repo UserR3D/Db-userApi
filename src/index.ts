@@ -23,7 +23,7 @@ const prisma = new PrismaClient();
 server.register(fjwt, { secret: `${process.env.JWT_SECRET}` });
 server.register(cors, {
   credentials: true,
-  origin: "*",
+  origin: process.env.CORS_ORIGIN,
   methods: ["GET", "POST", "PUT", "DELETE"],
 });
 
