@@ -35,3 +35,11 @@ export async function getOnlyPost(id: number) {
     include: { author: { select: { email: true, role: true } } },
   });
 }
+
+export async function getPostsUser(id: number) {
+  return await prisma.post.findMany({
+    where: {
+      authorID: id,
+    },
+  });
+}
