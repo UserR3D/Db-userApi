@@ -8,7 +8,7 @@ import {
 import { postDbSchema } from "../schemas/userSchema";
 async function postsRoute(route: FastifyInstance) {
   route.post(
-    "/users/post",
+    "/users/createPost",
     { preHandler: [route.authenticate], schema: { body: postDbSchema } },
     postCreate
   );
